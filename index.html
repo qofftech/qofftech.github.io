@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="google-site-verification" content="qk0ZCff2kas2ARdW2S7J_lqTJ0LS_Z4AhxUSAJjK9-o" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Construction Estimation Services</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+
+<body id="top">
   <header>
     <div class="container">
-      <h1 class="logo"><img src="src/Assets/logo.svg" alt="QOFFTech" /></h1>
+      <h1 class="logo"><a href="#top" id="logo-link"><img src="src/Assets/logo.svg" alt="QOFFTech" /></a></h1>
       <nav>
         <a href="#about">About</a>
         <a href="#services">Services</a>
@@ -22,14 +23,18 @@
   <section class="hero">
     <div class="container">
       <h2>Professional Construction Estimation Services</h2>
-      <p>Accurate, reliable, and timely estimates for residential and commercial projects. Win more bids with our expert take-off services.</p>
+      <p>Accurate, reliable, and timely estimates for residential and commercial projects. Win more bids with our expert
+        take-off services.</p>
     </div>
   </section>
 
   <section id="about">
     <div class="container">
       <h2>About QOFFTech</h2>
-      <p>We specialize in construction cost estimation and material take-off services for contractors, architects, and developers. With years of experience and a detail-oriented approach, we help you bid confidently and win more projects. Our team combines industry expertise with cutting-edge technology to deliver precise estimates that keep your projects on track and profitable.</p>
+      <p>We specialize in construction cost estimation and material take-off services for contractors, architects, and
+        developers. With years of experience and a detail-oriented approach, we help you bid confidently and win more
+        projects. Our team combines industry expertise with cutting-edge technology to deliver precise estimates that
+        keep your projects on track and profitable.</p>
     </div>
   </section>
 
@@ -50,17 +55,25 @@
   <section id="contact">
     <div class="container">
       <h2>Contact Us</h2>
-      <p>Ready to get started? Get in touch for a free quote or project consultation.</p>
+      <p id="contact-intro">Ready to get started? Get in touch for a free quote or project consultation.</p>
       <form id="contact-form">
-        <input type="text" name="name" placeholder="Your Full Name" required />
-        <input type="email" name="email" placeholder="Your Email Address" required />
-        <input type="tel" name="phone" placeholder="Your Phone Number" />
-        <textarea name="message" placeholder="Tell us about your project..." rows="6" required></textarea>
-        <button type="submit">Get Free Quote</button>
+        <input id="name" type="text" name="name" placeholder="Your Full Name" required />
+        <input id="email" type="email" name="email" placeholder="Your Email Address" required />
+        <textarea id="message" name="message" placeholder="Tell us about your project..." rows="6" required></textarea>
+        <button type="submit">Submit</button>
       </form>
+      <div id="thank-you-message" style="display: none; text-align: center; padding: 2rem;">
+        <h3 style="color: #667eea; margin-bottom: 1rem;">Thank You!</h3>
+        <p style="font-size: 1.2rem; margin-bottom: 1rem;">Your message has been sent successfully. We'll get back to
+          you within 24 hours.</p>
+        <p style="color: #666; font-size: 1rem;">We appreciate your interest in our construction estimation services!
+        </p>
+        <button id="send-another"
+          style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: linear-gradient(45deg, #667eea, #764ba2); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: 600;">Send
+          Another Message</button>
+      </div>
     </div>
   </section>
-
   <footer>
     <div class="container">
       <p>&copy; 2025 QOFFTech Construction Estimation Services. All rights reserved.</p>
@@ -69,27 +82,67 @@
       </p>
     </div>
   </footer>
-
   <script>
     const form = document.getElementById("contact-form");
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    const thankYouMessage = document.getElementById("thank-you-message");
+    const contactIntro = document.getElementById("contact-intro");
+    const sendAnotherBtn = document.getElementById("send-another");
 
-      const data = {
-        name: form.name.value,
-        email: form.email.value,
-        message: form.message.value,
-      };
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // prevent default form action
 
-      await fetch("YOUR_GOOGLE_SCRIPT_URL_HERE", {
+      const formData = new FormData(form);
+      // Show loading state
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = "Sending...";
+      submitBtn.disabled = true;
+
+      fetch("https://formsubmit.co/ajax/944c874659d2c86f625ec3fa0e6b2753", {
         method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
+        body: formData,
+        dataType: "json",
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Hide form and show thank you message
+            form.style.display = "none";
+            contactIntro.style.display = "none";
+            thankYouMessage.style.display = "block";
+          } else {
+            throw new Error("Form submission failed");
+          }
+        })
+        .catch(error => {
+          console.log("Error:", error);
+          alert("Sorry, there was an error sending your message. Please try again or contact us directly.");
 
-      alert("Message sent!");
+          // Reset button state
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        });
+    });
+
+    // Handle "Send Another Message" button
+    sendAnotherBtn.addEventListener("click", function () {
+      // Hide thank you message and show form
+      thankYouMessage.style.display = "none";
+      form.style.display = "block";
+      contactIntro.style.display = "block";
+
+      // Reset form
       form.reset();
+
+      // Reset button state
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.textContent = "Submit";
+      submitBtn.disabled = false;
     });
   </script>
 </body>
+
 </html>
