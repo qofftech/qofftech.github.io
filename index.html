@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Construction Estimation Services</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 class="logo">[Your Logo]</h1>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h2>Professional Take-Off & Construction Estimation Services</h2>
+      <p>Accurate, reliable, and timely estimates for residential and commercial projects.</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <h2>About Us</h2>
+      <p>We specialize in construction cost estimation and material take-off services for contractors, architects, and developers. With years of experience and a detail-oriented approach, we help you bid confidently and win more projects.</p>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <h2>Our Services</h2>
+      <ul>
+        <li>Material Take-Offs (MTOs)</li>
+        <li>Quantity Surveying</li>
+        <li>Construction Cost Estimation</li>
+        <li>Bid Preparation Support</li>
+        <li>Blueprint Analysis</li>
+        <li>Excel-based Estimating Reports</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <p>Get in touch for a free quote or project consultation.</p>
+      <form id="contact-form">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Estimation Services. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById("contact-form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        message: form.message.value,
+      };
+
+      await fetch("YOUR_GOOGLE_SCRIPT_URL_HERE", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      alert("Message sent!");
+      form.reset();
+    });
+  </script>
+</body>
+</html>
