@@ -44,6 +44,19 @@ header .logo {
   align-items: center;
 }
 
+header .logo a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+header .logo a:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
 header .logo img {
   height: 60px;
   width: auto;
